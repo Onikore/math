@@ -10,13 +10,13 @@ class Node:
         return self.left, self.right
 
 
-def huffman_code_tree(node, bin_string=''):
-    if type(node) is str:
+def huffman_code_tree(node, bin_string=b''):
+    if type(node) in [str, int]:
         return {node: bin_string}
     l, r = node.children()
     d = dict()
-    d.update(huffman_code_tree(l, bin_string + '0'))
-    d.update(huffman_code_tree(r, bin_string + '1'))
+    d.update(huffman_code_tree(l, bin_string + b'0'))
+    d.update(huffman_code_tree(r, bin_string + b'1'))
     return d
 
 
@@ -27,12 +27,11 @@ def make_tree(items):
         node = Node(char1, char2)
         items.append((node, freq1 + freq2))
         items = sorted(items, key=lambda x: x[1], reverse=True)
-        # print(items)
     return items[0][0]
 
 
 if __name__ == '__main__':
-    input_str = 'Первую версию предствать не позже указанного срока затем можно исправлять и досдавать'.lower()
+    input_str = 'кошка'.lower()
     print(f'Исходный текст       - {input_str}')
 
     frequency = dict(Counter(input_str))
